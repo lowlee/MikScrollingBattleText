@@ -27,7 +27,7 @@ local Print = MikSBT.Print
 local GetSkillName = MikSBT.GetSkillName
 
 local IsClassic = WOW_PROJECT_ID >= WOW_PROJECT_CLASSIC
-
+local tocversion = select(4, GetBuildInfo())
 
 -------------------------------------------------------------------------------
 -- Private constants.
@@ -1585,6 +1585,7 @@ if IsClassic then
 		WARLOCK			= CreateClassSettingsTable("WARLOCK"),
 		WARRIOR			= CreateClassSettingsTable("WARRIOR"),
 		DEMONHUNTER		= CreateClassSettingsTable("DEMONHUNTER"),
+		EVOKER			= CreateClassSettingsTable("EVOKER"),
 
 
 		-- Throttle settings.
@@ -2541,6 +2542,18 @@ else
 				alwaysSticky	= true,
 				fontSize		= 26,
 			},
+			NOTIFICATION_ESSENCE_CHANGE = {
+				colorG		= 0.5,
+				colorB		= 0,
+				message		= "%a " .. L.MSG_ESSENCE,
+			},
+			NOTIFICATION_ESSENCE_FULL = {
+				colorG			= 0.5,
+				colorB			= 0,
+				message			= L.MSG_ESSENCE_FULL .. "!",
+				alwaysSticky	= true,
+				fontSize		= 26,
+			},
 			NOTIFICATION_HONOR_GAIN = {
 				colorR		= 0.5,
 				colorG		= 0.5,
@@ -3049,6 +3062,7 @@ else
 		WARLOCK			= CreateClassSettingsTable("WARLOCK"),
 		WARRIOR			= CreateClassSettingsTable("WARRIOR"),
 		DEMONHUNTER		= CreateClassSettingsTable("DEMONHUNTER"),
+		EVOKER			= CreateClassSettingsTable("EVOKER"),
 
 
 		-- Throttle settings.
@@ -3679,7 +3693,9 @@ local function OnEvent(this, event, arg1)
 		InitSavedVariables()
 
 		-- Add a button to launch MSBT's options from the Blizzard interface options.
-		SetupBlizzardOptions()
+		if tocversion < 100000 then
+			SetupBlizzardOptions()
+		end
 
 		-- Let the media module know the variables are initialized.
 		MikSBT.Media.OnVariablesInitialized()

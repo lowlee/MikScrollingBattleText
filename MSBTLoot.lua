@@ -26,7 +26,7 @@ local GetItemCount = GetItemCount
 local DisplayEvent = MikSBT.Animations.DisplayEvent
 
 local IsClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
-
+local tocversion = select(4, GetBuildInfo())
 
 -------------------------------------------------------------------------------
 -- Constants.
@@ -38,8 +38,13 @@ local SILVER = string_gsub(SILVER_AMOUNT, "%%d *", "")
 local COPPER = string_gsub(COPPER_AMOUNT, "%%d *", "")
 
 -- Localized name for item types.
-local ITEM_TYPE_QUEST = _G.GetItemClassInfo(LE_ITEM_CLASS_QUESTITEM)
+local ITEM_TYPE_QUEST
 
+if tocversion >= 100000 then
+	ITEM_TYPE_QUEST = _G.GetItemClassInfo(Enum.ItemClass.Questitem)
+else
+	ITEM_TYPE_QUEST = _G.GetItemClassInfo(LE_ITEM_CLASS_QUESTITEM)
+end
 
 -------------------------------------------------------------------------------
 -- Private variables.
