@@ -427,7 +427,7 @@ local function UseContainerItemHook(bag, slot)
 
 	-- Get item id for the used bag and slot.
 	local itemID
-	if tocversion >= 100000 then
+	if tocversion >= 100002 then
 		itemID = C_Container.GetContainerItemID(bag, slot)
 	else
 		itemID = GetContainerItemID(bag, slot)
