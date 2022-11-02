@@ -1,4 +1,12 @@
-Mik's Scrolling Battle Text Readme body { font-size: 10pt; font-family: verdana, arial, helvetica, sans-serif; } h1 { font-weight: bold; color: #004080; } a:link { color: #000060; text-decoration: none; } a:visited { color: #000060; text-decoration: none; } a:hover { text-decoration: underline; } div#HeaderBlock { background-color: #e0e0e0; border: 1px solid #000060; padding: 1ex; margin: 2em 0em 4em 0em; } div.TOCTitle { font-weight: bold; font-size: 14pt; color: #004080; border-bottom: 1px solid #000060; } div.TOC { margin: 2ex 1ex 4em 2ex; } div.TOCSection { margin-bottom: 2ex; } div.SectionTitle { margin-top: 6ex; font-weight: bold; font-size: 14pt; color: #004080; border-bottom: 1px solid #000060; } div.SectionBody { margin: 2ex 0ex 2ex 2ex; } div.SectionBody ul { margin-top: 1ex; } div.SectionBody a:link { color: #002080; } div.SectionBody a:visited { color: #002080; } div.SectionBody a:hover { text-decoration: underline; } div.SubsectionTitle { margin-top: 4ex; margin-bottom: 2ex; font-weight: bold; font-size: 110%; color: #004080; } div.SubsectionBody { margin: 2ex 0ex 2ex 2ex; } div.TriggerParameter { margin-left: 2ex; } td.ParameterName { font-size: 10pt; background-color: #e0e0e0; vertical-align: top; } td.ParameterDesc { font-size: 10pt; background-color: #e0e0e0; text-align: left; } li.FAQListItem { margin-bottom: 6ex; }
+FAN UPDATE - This repo only exists as the official one hasn't been updated for Dragonflight 10.0
+
+If Mikord or Resike update on Curseforge I will remove this immediately.
+
+This repo can either be downloaded manually - look at the releases to the left or an WoWUp can be used to automatically update it.
+
+Thanks to Elnarfim for the the code changes to make it work on 10.0
+
+- Lowlee
 
 Mik's Scrolling Battle Text
 ===========================
@@ -7,7 +15,7 @@ Version: 5.7.148
 Author: Mikord  
 Updated: February 5, 2018  
 Official Site: [https://wow.curseforge.com/projects/mik-scrolling-battle-text](https://wow.curseforge.com/projects/mik-scrolling-battle-text)  
-  
+
 [See Credits](#Credits)
 
 Table of Contents:
@@ -17,18 +25,18 @@ Table of Contents:
 *   [Description](#Description)
 *   [Commands](#Commands)
 *   [Trigger Guide](#TriggerGuide)
-    
+
     *   [Basic Concepts](#TriggerBasicConcepts)
     *   [Trigger Mechanics](#TriggerMechanics)
     *   [Advanced Concepts](#TriggerAdvancedConcepts)
     *   [Example Triggers](#ExampleTriggers)
-    
+
 *   [Trigger Reference](#TriggerReference)
-    
+
     *   [Trigger Main Events](#MainEvents)
     *   [Main Event Conditions](#MainEventConditions)
     *   [Trigger Exceptions](#TriggerExceptions)
-    
+
 *   [Search Pattern Reference](#SearchPatternReference)
 *   [Frequently Asked Questions](#FAQ)
 
@@ -49,21 +57,21 @@ Table of Contents:
 Installation Instructions
 
 [Return to TOC](#TOC)  
-  
+
 
 Unzip the contents into the AddOns directory of your WoW game directory.  
-  
+
 This is typically C:\\Program Files\\World of Warcraft\\Interface\\AddOns.  
-  
+
 **If you are upgrading the mod from a previous version, make sure to delete the old version prior to installing the new version.**
 
 Description
 
 [Return to TOC](#TOC)  
-  
+
 
 MSBT is designed to be an extremely lightweight, efficient, and highly configurable mod that makes it easier to see combat information by scrolling the information on the screen in separate, dynamically creatable scroll areas. It is a replacement for Blizzard's Floating Combat Text and Damage output.  
-  
+
 
 Features:
 
@@ -103,7 +111,7 @@ Supported Events:
 *   Pet Heals and Heals Over Time (HoTs)
 *   Environmental Damage
 
-  
+
 *   Outgoing:
 
 *   Melee Damage, Misses, Dodges, Parries, Blocks, Deflects, Absorbs, Immunes, Evades
@@ -115,7 +123,7 @@ Supported Events:
 *   Pet Spell Resists and Buff Dispels
 *   Pet Heals and Heals Over Time (HoTs)
 
-  
+
 *   Notification:
 
 *   Buffs / Buff Stacks / Buff Fades
@@ -138,13 +146,13 @@ Supported Events:
 *   Monster Emotes
 *   Player, Pet, and Item Cooldown Completions
 
-  
+
 *   Loot:
 
 *   Looted Items
 *   Money Gains
 
-  
+
 *   Default Triggers:
 
 *   All Relevant Classes - Low Health, Low Mana, Low Pet Health
@@ -163,7 +171,7 @@ Supported Events:
 Commands
 
 [Return to TOC](#TOC)  
-  
+
 
 /msbt
 
@@ -192,28 +200,28 @@ Shows the command usage.
 Trigger Guide
 
 [Return to TOC](#TOC)  
-  
+
 
 The trigger system is a powerful and flexible system that allows you to specify custom events to be displayed based on specific game events that are not already handled by default. There are several mechanisms in place to ensure triggers are efficient as possible so they are not needlessly wasting CPU cycles checking conditions that aren't relevant. Due to this optimization, several common triggers are included by default.
 
 Basic Concepts:
 
 Every time almost anything happens in the game, a combat log entry is generated for it. While it is not readily visible, each of these combat log entries is categorized by Blizzard according to specific event types. It is these event types that drive triggers. Triggers are really just definitions of a specific set of circumstances that must occur before they will fire.  
-  
+
 Aside from being categorized into an event type, each event that occurs in game has several other pieces of information associated with it such as who the source of the event was, how much the event hit or healed for, and whether or not the event was a crit. Obviously this additional information varies according to the type of event it is since, for example, an aura application can't crit.  
-  
+
 The trigger system refers to these event types as [main events](#MainEvents) and the additional pieces of information as [conditions](#MainEventConditions), since ultimately it is these additional pieces of information that define the specific circumstances of interest.  
-  
+
 Let's consider an example event to better understand how the pieces fit together. Assume that you were just hit by a fireball. The damage caused to you by the fireball generated an event of type "Skill Damage". The event also has many of other pieces of information associated with it like the name of the unit who cast the fireball, how much the fireball hit you for, whether or not it crit, whether the unit who cast the fireball is a player or an NPC, etc.  
-  
+
 Putting the above fireball example in terms of the trigger system, the fireball hitting you was a [main event](#MainEvents) of type "Skill Damage", and the [conditions](#MainEventConditions) were the name of the unit who cast the fireball, how much it hit you for, and so on.  
-  
+
 While the [main events](#MainEvents) and their [conditions](#MainEventConditions) offer a wealth the information, there is other non-event related "state" information available such as the current zone your character is in, whether or not certain buffs are active, and whether or not certain skills are available. This "state" information forms the basis for what the trigger system refers to as [exceptions](#TriggerExceptions). An [exception](#TriggerExceptions) will prevent a trigger from being displayed when it applies.
 
 Trigger Mechanics:
 
 Now that it is clear what [main events](#MainEvents), [conditions](#MainEventConditions), and [exceptions](#TriggerExceptions) are, we can explore how triggers make use of them and consequently how they are defined.  
-  
+
 The following list summarizes the stages a trigger follows to determine whether or not it fires:
 
 1.  One of the [main events](#MainEvents) that a trigger has defined occurs.
@@ -221,17 +229,17 @@ The following list summarizes the stages a trigger follows to determine whether 
 3.  The [exceptions](#TriggerExceptions) defined for the trigger are tested. If any of the exceptions apply, the trigger will not fire and all processing for the trigger stops.
 4.  The trigger fires thus displaying the specified output message and event settings.
 
-  
+
 As mentioned in the "[Basic Concepts](#TriggerBasicConcepts)" section above, triggers are driven by [main events](#MainEvents). Each trigger can be based on one or more of these [main events](#MainEvents) each with unique [conditions](#MainEventConditions). These [main events](#MainEvents) are treated as an "or" relationship meaning that when **ANY** one of them occurs, the trigger will move to the next stage of testing the [conditions](#MainEventConditions).  
-  
+
 The [conditions](#MainEventConditions) defined for a given [main event](#MainEvents) are treated as an "and" relationship meaning that **ALL** of them must be true for the trigger to move to the next stage of testing [exceptions](#TriggerExceptions).  
-  
+
 During the final stage, the [exceptions](#TriggerExceptions) defined for a trigger are treated as an "or" relationship meaning that when **ANY** one of them is true, the trigger will not fire.
 
 Advanced Concepts:
 
 Most common triggers won't need to delve into any of the concepts presented in this section, but using some of the more advanced capabilities can lead to triggers for highly complex events or single triggers capable of handling multiple events.  
-  
+
 Here is an overview of the main points that will be covered:
 
 *   Each [main event](#MainEvents) can be used multiple times for a single trigger
@@ -240,30 +248,30 @@ Here is an overview of the main points that will be covered:
 *   Substitution codes for skill names are available.
 *   Skill IDs can be used to discern which rank of a skill was used.
 
-  
+
 Recall from the "[Trigger Mechanics](#TriggerMechanics)" section that each trigger can have multiple [main events](#MainEvents) treated as an "or" relationship, and that each [main event](#MainEvents) can have its own unique [conditions](#MainEventConditions). Combining that with the capability to use a [main event](#MainEvents) multiple times for a single trigger means you can effectively cover a set of common scenarios all with a single trigger. For example, imagine you want to see when both Mace Stun and Improved Hamstring proc. Both cases are an aura application, but they have different skill names. By adding the same [main event](#MainEvents) twice, but specifying a different skill name [condition](#MainEventConditions) for each one, you are effectively saying when Mace Stun or Improved Hamstring proc this trigger should fire. Naturally the other [conditions](#MainEventConditions) such as affiliation and reaction would need to also be set for each event.  
-  
+
 The astute reader will say "Wait a second! How will I be able to tell which one procced if the output message is the same?". This problem is solved with substitution codes. Depending on which event actually caused the trigger to fire, %s will be replaced the appropriate skill name. Also, the correct icon would be displayed since triggers attempt to choose an appropriate icon based on the [main event](#MainEvents) that fired them.  
-  
+
 The capability of using the same condition multiple times for a given [main event](#MainEvents) with different relationships means that things such as ranges and complex pattern matching can be implemented. For example, imagine you are trying to create a trigger that will fire when an amount is between two values. The first [condition](#MainEventConditions) could be "Amount - Is Greater Than - X" and the second could be "Amount - Is Less Than - Y".  
-  
+
 Another advanced capability is using skill IDs to detect when specific ranks, such as rank 1, are being used. Most online databases can be used to ascertain what the skill ID is for the ranks of each skill. By adding [conditions](#MainEventConditions) that specify these specific skill IDs, it is possible to only trigger on specific skill ranks.
 
 Example Triggers:
 
 Since the point of the trigger system is to allow for custom events that are not already available, there is no way to cover all of the possibilities. However, most commonly requested triggers fall within the following categories. An example trigger or two for each category is provided and can be used as a guide to creating your desired trigger.  
-  
+
 Please note these examples don't make use of advanced capabilities in order to keep the examples easy to understand.  
-  
+
 
 CC Breaks:
 
 A common request for triggers is to be notified when crowd control skills like sheep, sap, and blind break from your focus target while in the arena. Nearly all of these effects involve removing an aura and therefore the [main event](#MainEvents) type will usually be "Aura Removal".  
-  
+
 The most common [conditions](#MainEventConditions) used for this category of triggers are "Skill Name", "Recipient Unit Affiliation", and "Recipient Unit Reaction".  
-  
+
 **Polymorph Broke**  
-  
+
 Output Message: Poly Broke - %r!  
 Main Events:
 
@@ -273,7 +281,7 @@ Skill Name - Is Equal To - Polymorph
 Recipient Unit Affiliation - Is Equal To - Focus  
 Recipient Unit Reaction - Is Equal To - Hostile  
 
-  
+
 Exceptions:
 
 Zone Type - Is Not Equal To - Arena  
@@ -281,11 +289,11 @@ Zone Type - Is Not Equal To - Arena
 Procs:
 
 Another common request for triggers is to be notified when certain procs such as Mace Stun, Improved Wing Clip, or item-based haste effects occur. Nearly all of the effects apply an aura of some sort and as such the [main event](#MainEvents) type will usually be "Aura Application".  
-  
+
 The most common [conditions](#MainEventConditions) used for this category of triggers are "Skill Name", "Recipient Unit Affiliation", and "Recipient Unit Reaction".  
-  
+
 **Mace Stun**  
-  
+
 Output Message: Mace Stun!  
 Main Events:
 
@@ -295,15 +303,15 @@ Skill Name - Is Equal To - Mace Stun Effect
 Recipient Unit Affiliation - Is Equal To - Target  
 Recipient Unit Reaction - Is Equal To - Hostile  
 
-  
+
 Exceptions:
 
 None
 
-  
-  
+
+
 **Focus** (from Mystical Skyfire Diamond)  
-  
+
 Output Message: Focus!  
 Main Events:
 
@@ -312,7 +320,7 @@ Aura Application
 Skill Name - Is Equal To - Focus  
 Recipient Unit Affiliation - Is Equal To - You  
 
-  
+
 Exceptions:
 
 None
@@ -320,11 +328,11 @@ None
 Key Skill Usage:
 
 Many players find it useful to create a trigger for when certain key abilities such as Hand of Freedom or Hand of Protection are used while in the arena. Most of these effects involve successfully casting a spell and so the [main event](#MainEvents) type will usually be "Cast Success".  
-  
+
 The most common [conditions](#MainEventConditions) used for this category of triggers are "Skill Name" and "Source Unit Reaction".  
-  
+
 **Hand of Protection Used**  
-  
+
 Output Message: Melee Bubble!  
 Main Events:
 
@@ -333,15 +341,15 @@ Cast Success
 Skill Name - Is Equal To - Hand of Protection  
 Source Unit Reaction - Is Equal To - Hostile  
 
-  
+
 Exceptions:
 
 Zone Type - Is Not Equal To - Arena  
 
-  
-  
+
+
 **Priest Fear Used**  
-  
+
 Output Message: Priest Fear Down!  
 Main Events:
 
@@ -350,7 +358,7 @@ Cast Success
 Skill Name - Is Equal To - Psychic Scream  
 Source Unit Reaction - Is Equal To - Hostile  
 
-  
+
 Exceptions:
 
 Zone Type - Is Not Equal To - Arena  
@@ -358,17 +366,17 @@ Zone Type - Is Not Equal To - Arena
 Trigger Reference
 
 [Return to TOC](#TOC)  
-  
+
 
 This section provides a reference for each of the [main events](#MainEvents), [conditions](#MainEventConditions), and [exceptions](#TriggerExceptions) that triggers may utilize.  
-  
+
 The following is a description of the fields unique to the trigger system interface:  
-  
+
 
 Output Message:
 
 This is the message that will be displayed when the trigger fires.  
-  
+
 Most [main events](#MainEvents) allow the following substitution codes:  
 
 *   %n - The name of the source of the event.
@@ -376,7 +384,7 @@ Most [main events](#MainEvents) allow the following substitution codes:
 *   %a - The amount associated with the event.
 *   %s - The skill name associated with the event.
 
-  
+
 In addition, certain [main events](#MainEvents) that involve two different skill names like dispels (the name of skill performing the dispel and the name of the skill being dispelled) allow the following substitution code:
 
 *   %e - The extra skill name associated with the event.
@@ -388,15 +396,15 @@ This allows you to set the classes that you want the trigger to apply to. **NOTE
 [Main Events](#MainEvents):
 
 This allows you to define which [main events](#MainEvents) should begin the process of testing the trigger. When **ANY** (or relationship) of these main events occur and their [conditions](#MainEventconditions) are true, the trigger will then make sure none of the [exceptions](#TriggerExceptions) are true before firing.  
-  
+
 The [main events](#MainEvents) reference table details the purpose of each event.
 
 [Trigger Exceptions](#TriggerExceptions):
 
 This allows you define [exceptions](#TriggerExceptions) to prevent the trigger from firing.  
-  
+
 They are only checked if one of the [main events](#MainEvents) has occurred and all its [conditions](#MainEventConditions) are true.  
-  
+
 The [trigger exceptions](#TriggerExceptions) reference table below details the purpose of each exception.
 
 Trigger Main Events:
@@ -756,7 +764,7 @@ The type of zone you are currently in.
 Search Pattern Reference
 
 [Return to TOC](#TOC)  
-  
+
 
 Here is the official lua reference for patterns:
 
@@ -778,13 +786,13 @@ A _character class_ is used to represent a set of characters. The following comb
 *   %z: represents the character with representation 0.
 *   %x: (where x is any non-alphanumeric character) represents the character x. This is the standard way to escape the magic characters. Any punctuation character (even the non magic) can be preceded by a '%' when used to represent itself in a pattern.
 *   \[set\]: represents the class which is the union of all characters in set. A range of characters may be specified by separating the end characters of the range with a '-'. All classes %x described above may also be used as components in set. All other characters in set represent themselves. For example, \[%w\_\] (or \[\_%w\]) represents all alphanumeric characters plus the underscore, \[0-7\] represents the octal digits, and \[0-7%l%-\] represents the octal digits plus the lowercase letters plus the '-' character.  
-      
+
     The interaction between ranges and classes is not defined. Therefore, patterns like \[%a-z\] or \[a-%%\] have no meaning.
-  
+
 *   \[^set\]: represents the complement of set, where set is interpreted as above.
 
 For all classes represented by single letters (%a, %c, etc.), the corresponding uppercase letter represents the complement of the class. For instance, %S represents all non-space characters.  
-  
+
 The definitions of letter, space, and other character groups depend on the current locale. In particular, the class \[a-z\] may not be equivalent to %l.
 
 Pattern Item:
@@ -806,75 +814,75 @@ A _pattern_ is a sequence of pattern items. A '^' at the beginning of a pattern 
 Captures:
 
 A pattern may contain sub-patterns enclosed in parentheses; they describe captures. When a match succeeds, the substrings of the subject string that match captures are stored (captured) for future use. Captures are numbered according to their left parentheses. For instance, in the pattern "(a\*(.)%w(%s\*))", the part of the string matching "a\*(.)%w(%s\*)" is stored as the first capture (and therefore has number 1); the character matching "." is captured with number 2, and the part matching "%s\*" has number 3.  
-  
+
 As a special case, the empty capture () captures the current string position (a number). For instance, if we apply the pattern "()aa()" on the string "flaaap", there will be two captures: 3 and 5.
 
 Frequently Asked Questions
 
 [Return to TOC](#TOC)  
-  
+
 
 1.  **I don't like any of the fonts supplied with MSBT. How do I use my own fonts?**  
-      
-    
+
+
     WARNING: FONT FILES MUST EXIST IN THE TARGET LOCATION **BEFORE** WORLD OF WARCRAFT IS STARTED.  
     IT IS HIGHLY RECOMMENDED THAT YOU PLACE YOUR CUSTOM FONT FILES IN THE MikScrollingBattleText\\Fonts DIRECTORY TO AVOID ISSUES.
-    
-      
-      
+
+
+
     NOTE: Keep in mind that if you use your own font files that you need to make sure the font supports the characters that will be displayed. For example the typical way to display buff gains is \[BuffName\]. If the font you use does not have a character glyph for the \[ or \] characters you will not be able to see the unsupported characters. This is especially important with non-English clients since a lot of characters aren't supported by English fonts.  
-      
+
     There are a couple of ways to use custom fonts:  
-      
+
     *   The first, and preferred method, is to use MSBT's new in-game media editor available under the custom media tab. If you follow the recommended guideline of placing your custom font files in the MikScrollingBattleText\\Fonts directory, all you need to enter for the font path in the in-game media editor is the name of the font file.  
-          
+
         For example, assume you have a truetype font file "MyUberFont.ttf" you want to use.  
-          
+
         1.  Copy the "MyUberFont.ttf" font file into the MikScrollingBattleText\\Fonts directory before you start the game.
         2.  Load the game and access MSBT's custom media tab.
         3.  Click the Add Font button.
         4.  Enter the name you want the font to be called in game such as "My Custom Font" without the quotes.
         5.  Enter "MyUberFont.ttf" without the quotes for the font path.
         6.  Click the Okay button and the new font will be available.
-      
-      
+
+
     *   The second method is aimed more at mod developers that want to display information using MSBT. You can call the MikSBT.RegisterFont function to register a custom font that you may then specify in your call to MikSBT.DisplayMessage. See the included API.html file for reference information.
 2.  **How do I increase the font size to something larger than 38?**  
-      
+
     It is not currently possible due to a limitation within the game. Blizzard has stated that allowing larger font sizes is something they would like to implement at some point, but has not provided a time frame.
 3.  **How do I add my own custom sounds?**  
-      
-    
+
+
     WARNING: SOUND FILES MUST EXIST IN THE TARGET LOCATION **BEFORE** WORLD OF WARCRAFT IS STARTED.  
     IT IS HIGHLY RECOMMENDED THAT YOU PLACE YOUR CUSTOM SOUND FILES IN THE MikScrollingBattleText\\Sounds DIRECTORY TO AVOID ISSUES.
-    
-      
-      
+
+
+
     There are a couple of methods that can be used to add custom sounds.
     *   The first, and preferred method, is to use MSBT's new in-game media editor available under the custom media tab. If you follow the recommended guideline of placing your custom sound files in the MikScrollingBattleText\\Sounds directory, all you need to enter for the sound path in the in-game media editor is the name of the sound file. The acceptable sound file types are .mp3 and .ogg.  
-          
+
         For example, assume you have an mp3 sound file "MyUberSound.mp3" you want to use.  
-          
+
         1.  Copy the "MyUberSound.mp3" sound file into the MikScrollingBattleText\\Sounds directory before you start the game.
         2.  Load the game and access MSBT's custom media tab.
         3.  Click the Add Sound button.
         4.  Enter the name you want the sound to be called in game such as "My Custom Sound" without the quotes.
         5.  Enter "MyUberSound.mp3" without the quotes for the sound path.
         6.  Click the Okay button and the new sound will be available.
-      
-      
+
+
     *   The second method is aimed more at mod developers. You can call the MikSBT.RegisterSound function to register a custom sound. See the included API.html file for reference information.
 4.  **How do I create a new trigger?**  
-      
+
     The first step is to **read** the [Trigger Guide](#TriggerGuide) and [Trigger Reference](#TriggerReference) sections above.  
-      
+
     Among other things, the guide explains how triggers work, what the various components of the trigger system are, and provides example triggers for common categories. The reference section provides specific information about the various components such as the available substitution codes, main events, conditions, and exceptions.  
-      
+
     Once you've read those sections, we can continue on to the process for creating triggers.  
-      
+
     We will be creating a trigger that notifies us when Polymorph breaks from a hostile unit when we are playing on a mage in the arena.  
-      
-    
+
+
     1.  Since a new trigger is being created, click the Add New Trigger button, enter "Poly Broke - %r!" for the output message, and click Okay.
     2.  The trigger conditions configuration dialog for the new trigger will automatically be shown. You can click the trigger conditions icon button (the gear) next to a trigger to access these settings manually at a later time.
     3.  Click the edit Trigger Classes icon button and uncheck "All" classes. Check Mage for the class the trigger will apply to. It is better to select the specific classes the trigger applies to instead of selecting all classes since by specifying classes, the mod can completely ignore the trigger and save resources for the classes to which it does not apply.
@@ -887,49 +895,49 @@ Frequently Asked Questions
     10.  Select "Zone Type - Is Not Equal To - Arena" for the Exception. This makes it so the trigger will not fire when we aren't in the arena.
     11.  Click the Save button to save the new exception.
     12.  Click the Save button on the trigger frame to save the trigger's new conditions.
-    
-      
-      
+
+
+
     The %r used in step a is a substitution code for the name of the unit that the debuff (polymorph in this case) faded from. You already knew that though because you read the [Trigger Guide](#TriggerGuide) and [Trigger Reference](#TriggerReference)!  
-      
+
     The color, font settings, sticky state, sound, and output scroll area for the trigger can be set like any other event.
 5.  **Is it possible to prevent Mutilate from being merged?**  
-      
+
     Yes. Add it to the merge exclusions list under the Spam Controls tab in the options interface.
 6.  **Is is possible to disable the default Blizzard XP Text?**  
-      
+
     No. Unfortunately that text is not a part of the UI and Blizzard has not provided the means necessary to disable it. I have requested a CVar to control it several times over the years, but they have yet to add one.
 7.  **How do I suppress Vampiric Embrace?**  
-      
+
     This can be accomplished a couple of different ways.  
-      
+
     *   The preferred method is to add it to the skill suppressions list under the Spam Controls tab.
-      
-      
+
+
     *   Another way is to use the heal threshold slider under the Spam Controls tab.  
         The drawback to this approach is that all heals under the specified value will be suppressed and not specifically Vampiric Embrace, which may or may not be your desired behavior.
 8.  **I want to see skill names even when there is an icon. Is that possible?**  
-      
+
     Yes. Uncheck "Exclusive Skill Names" under the Skill Icons tab.
 9.  **Is there a way to show the damage above the target's heads like the default damage text?**  
-      
+
     The only way this is possible is using the built-in game damage. It can be enabled through the game's interface options, but keep in mind you will lose all customization capabilities for outgoing damage if you choose to use the game's built-in damage. WoW's API does not provide a method to get the position of 3D game objects such as players and mobs. This is intentional on their part and will likely never change.  
-      
+
     I do not recommend using the built-in game damage option. If you take the time to get used to having the damage in a consolidated area, you will likely find it superior in many ways. Aside from the obvious visual customization capabilities of using MSBT's damage display, there are many other benefits such as being able to see the damage and healing being done to targets that are not in your viewport, merging of AoE with cumulative amounts, throttling of DoT spam, damage thresholds, per skill suppressions for things you don't care about, icons annotating which skill caused the damage or healing, and more.
 10.  **Is MSBT efficient?**  
-      
+
     Absolutely. MSBT 5.0 was completely re-designed from the ground up using Blizzard's new mod statistics API tools with the #1 priority of optimization for reduced memory usage and CPU efficiency. As a result, it is both lightweight (low memory usage) and efficient (low CPU usage), which, sadly, is frequently ignored in performance discussions. Performance entails both memory usage and CPU usage. Unless you don't have enough RAM available, CPU usage is almost always more of a factor on your FPS than raw memory usage is.  
-      
+
     Please don't just take my word for it though. Test it out for yourself. Blizzard has made it simple to see statistics about mod usage with the GetAddOnMemoryUsage and GetAddOnCPUUsage API calls. Testing a mod will give you a true picture of its performance.  
-      
+
     One thing to keep in mind during your testing is that MSBT is written to be completely dynamic. It will only create exactly what objects it needs when it needs them and then reuse them from that point forward. This means during the first few combat cycles you will see a slightly higher increasing rate than you might expect as the first set of objects is created. The rate will quickly stabilize to typically less than 1 KiB/s as the objects begin to be reused. The main benefits to this approach are less overall memory usage and very little memory churn.  
-      
+
     Also, don't forget to look at CPU utilization. As I said above, it is frequently ignored, but it is also important. Would you rather have your CPU spending extra time on the game engine, or wasting cycles on an inefficient mod?
 
 Version History
 
 [Return to TOC](#TOC)  
-  
+
 
 Latest
 
@@ -1082,7 +1090,7 @@ Latest
     *   Added Item Cooldown Complete to the available trigger events.
     *   Added Item ID and Item Name condition handling for the main trigger events that support them.
     *   Cooldown exclusions now accept skill IDs, item names, and item IDs in addition to skill names.
-  
+
 *   Added monochrome, monochrome + thin, and monochrome + thick to available outline font settings for pixel font lovers.
 *   Modified the custom font and sound validation routines to work with arbitrary case extensions.
 *   Changed custom font validation error message to a more descriptive message when the font can't be set versus the more generic ttf message.
@@ -1137,7 +1145,7 @@ Latest
     *   Changed Skill Cooldown Complete trigger event to Player Cooldown Complete (only detects player cooldowns).
     *   Added Pet Cooldown Complete to the available trigger events.
     *   Added Skill ID as an available condition for player and pet cooldown triggers.
-  
+
 *   Created new events for outgoing pet heals, pet heal crits, pet periodic heals (HoTs), and pet periodic heal (HoT) crits.
 *   Efflorescense is now detected and displayed as a pet heal.
 *   Added default triggers for Blood Swarm and Shadow Infusion x5.
@@ -1262,7 +1270,7 @@ Latest
 *   Changed the interaction with Blizzard's default FCT (Floating Combat Text) and damage/healing displays:
     *   The default FCT and damage/healing displays are no longer manually controlled. The settings in the game's Interface Options configuration must be used to control them instead.
     *   The Game Damage and Game Healing checkboxes have been removed from the General tab since they are no longer used.
-  
+
 *   Damage done to structures from siege vehicles (and other sources like explosives) will now display.
 *   Vehicles are now treated as the player themselves instead of as their pet for incoming and outgoing damage.
 *   Added default suppressions for Desecration, Abominable Might, and Unleashed Rage to prevent the spam they generate.
@@ -1287,7 +1295,7 @@ Latest
     *   Control color and enabled state for each individual class.
     *   Uses standard class colors defined by Blizzard by default.
     *   Applies to class names shown in triggers as well.
-  
+
 *   Made minor optimizations to the merging system and event formatting.
 *   Added overkill amounts to available partial effects, but they are disabled by default.
 *   Added a default trigger for hostile player PvP trinket usage including who used it. It is set to only show in arenas by default.
@@ -1318,7 +1326,7 @@ Latest
     *   Death Knight cooldowns will now consider rune cooldowns. For example, consider Rune Tap only has 4 seconds remaining, but a blood rune won't be available for 6 seconds. The notification won't display until the rune is available.
     *   The small "time drift" that could occur on long cooldowns should no longer occur.
     *   Removed old pestilence cooldown information.
-  
+
 *   Added default trigger for Decimate.
 *   Added default trigger for Lock and Load.
 *   Modified item exclusions to include quest items.
@@ -1344,7 +1352,7 @@ Latest
     *   Modified font handling to ensure invalid paths do not throw errors.
     *   The old MSBTFonts.lua and MSBTSounds.lua files have been removed in favor of this new system.
     *   Remember that the media files must already exist **before** WoW is started or they can't be used.
-  
+
 *   Added a new loot alerting system with several options:
     *   Provides a total count of how many of the looted item are now in inventory and, optionally, how many items were looted (via %a event code).
     *   Looted items are colored according to their quality (grey, green, etc)
@@ -1352,7 +1360,7 @@ Latest
     *   Always display specific items by name.
     *   Always suppress specific items by name.
     *   Always show quest items regardless of exclusions.(subject to Blizzard having the item marked as a quest item).
-  
+
 *   Created new events for incoming and outgoing periodic damage (DoT) crits.
 *   Added an option to control whether or not the text shadowing effect introduced in version 5.3.37 is applied.
 *   Outgoing dispels will now display debuffs cleansed from friendly units as well as buffs from enemy units.
@@ -1445,12 +1453,12 @@ Latest
     *   Modified all partial effects to use the same bracket style as overheals.
     *   Updated combo point handling to work with WotLK.
     *   Modified power gains from leeches to show the correct amount gained instead of the amount leeched.
-  
+
 *   Performance enhancements:
     *   Removed delays from the animation system that should make the animations a little smoother on fast systems.
     *   Events that are capable of being merged will now appear more quickly than previously.
     *   Made some minor optimizations in substitution code handling.
-  
+
 *   Realm names are no longer shown as a part of name based substitutions for cross-realm players.
 *   Rewrote media handling system to provide native Shared Media support.
 *   Physical damage coloring is now ignored for outgoing skills that are not "auto attacks."
@@ -1483,7 +1491,7 @@ Latest
     *   Each parameter for a main event type can now specify various relationships.
     *   Parameters involving strings like skill names and unit names can now choose between an exact match or a search pattern in most cases.
     *   Added a new main event for skill cooldown completions.
-  
+
 *   Full paths may now be entered for sounds. This includes path to sound files internal to WoW.
 *   Added Traditional Chinese localization.
 *   Moved font definitions to localization files so they can be unique per language. MSBTFonts.lua can still be used to add custom fonts.
@@ -1508,7 +1516,7 @@ Latest
     *   Any additional triggers you may have created in previous versions will have to be recreated under the new system.
     *   Added a default trigger for Viper Sting.
     *   Added the default clearcasting trigger to druids.
-  
+
 *   Skills like "Mangle (Bear)()" will now be displayed as "Mangle" in the cooldown area.
 *   Animations may now be as slow as 20% of normal instead of the previous 50%.
 *   Scroll areas can now have a minimum height of 50 down from 100.
@@ -1655,11 +1663,11 @@ Latest
     *   Redesigned the underlying options tables such that shared information amongst the events is only stored once instead of separately for each event. This saves quite a bit of memory, especially when there are multiple profiles.
     *   Created a single pool of dynamically created font strings to be shared by the various scroll areas. Previously a set number of font strings were created for every scroll area.
     *   Load up memory usage is now around 450 KiB.
-  
+
 *   Minor Optimizations:
     *   Trigger system will no longer listen for events that there are no triggers for. Previously it received the same events the mod was already parsing and ignored the ones with no triggers.
     *   Reduced the amount of information that needs to be passed around to lower memory usage during operation.
-  
+
 *   Rewrote the animation code to work using scaled timing. Previously the animation was created by moving the text a set amount of pixels each update. This had the effect of causing the animation speed to vary greatly depending on system performance. The animations should now keep the same speed regardless of large performance hits, such as those incurred while recording a video or during extreme lag.
 *   Each character will now load the last selected profile for that character by default.
 *   Changed the default font to Porky, which has glyphs for most common German, French, and Spanish special characters. In addition, most of the fonts were replaced with new versions that support them as well. However, the old Adventure font is still available for those who want to use it.
@@ -1728,7 +1736,7 @@ Latest
     *   Streamlined the combat event to screen animation "pipeline."
     *   Namespaced all code to reduce global namespace pollution.
     *   Load up KiB Usage in v1.03 was approximately 1050 KiB. This has been reduced to around 488 KiB. In addition, due to the table recycling system, memory usage during operation is much more consistent instead of continuously increasing until the next garbage collection cycle.
-  
+
 *   Added a function to allow messages to be easily displayed through MSBT from external sources.  
     This function is MikSBT.DisplayMessage and is detailed in the included API.html file.
 *   Added the command "/msbt stats" to report statistics about the table recycling system.
@@ -1759,7 +1767,7 @@ Latest
 Credits
 
 [Return to TOC](#TOC)  
-  
+
 
 Thanks to:
 
