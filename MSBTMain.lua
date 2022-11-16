@@ -213,6 +213,7 @@ local function CreateDamageMaps()
 	damageColorProfileEntries[DAMAGETYPE_ARCANE] = "arcane"
 	damageColorProfileEntries[DAMAGETYPE_FROSTFIRE] = "frostfire"
 	damageColorProfileEntries[DAMAGETYPE_SHADOWFLAME] = "shadowflame"
+	damageColorProfileEntries[DAMAGETYPE_CHAOS] = "chaos"
 end
 
 
