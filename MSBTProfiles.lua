@@ -1570,6 +1570,7 @@ if IsClassic then
 		arcane			= { colorR = 1, colorG = 0.725, colorB = 1 },
 		frostfire		= { colorR = 0.824, colorG = 0.314, colorB = 0.471 },
 		shadowflame		= { colorR = 0.824, colorG = 0.5, colorB = 0.628 },
+		chaos			= { colorR = 0.125, colorG = 0.411, colorB = 0.203 },
 
 
 		-- Class color settings.
@@ -3047,6 +3048,7 @@ else
 		arcane			= { colorR = 1, colorG = 0.725, colorB = 1 },
 		frostfire		= { colorR = 0.824, colorG = 0.314, colorB = 0.471 },
 		shadowflame		= { colorR = 0.824, colorG = 0.5, colorB = 0.628 },
+		chaos			= { colorR = 0.125, colorG = 0.411, colorB = 0.203 },
 
 
 		-- Class color settings.
